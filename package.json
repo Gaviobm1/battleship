@@ -6,7 +6,7 @@
   "scripts": {
     "test": "jest",
     "build": "webpack",
-    "watch": "webpack",
+    "watch": "webpack & jest",
     "gitpages": "git add dist && git commit -m \"Initial dist subtree commit\"",
     "gitsubtreepush": "git subtree push --prefix dist origin gh-pages"
   },
