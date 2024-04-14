@@ -1,5 +1,5 @@
 /* eslint-disable no-undef */
-import Gameboard from './gameboard';
+import Gameboard from './gameboard.js';
 
 test('Gameboard initialises empty array of ships', () => {
   expect(new Gameboard().ships).toEqual([]);

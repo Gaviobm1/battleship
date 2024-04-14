@@ -4,9 +4,9 @@ class Coordinate {
     this.y = y;
   }
 
-  generateRandomCoords(maxX, maxY, minX, minY) {
-    this.x = Math.floor(Math.random() * (maxX - 1)) + minX;
-    this.y = Math.floor(Math.random() * (maxY - 1)) + minY;
+  generateRandomCoords(maxX = 10, maxY = 10, minX = 1, minY = 1) {
+    this.x = Math.floor(Math.random() * (maxX) + minX);
+    this.y = Math.floor(Math.random() * (maxY) + minY);
   }
 
   getHorizontalRange(max, length) {
@@ -35,7 +35,7 @@ class Coordinate {
   getVerticalRange(max, length) {
     const coords = [];
     let yLimit;
-    if (this.x + length > max) {
+    if (this.y + length > max) {
       yLimit = this.y - (length - 1);
       for (let i = 0; i < length; i += 1) {
         coords[i] = [];

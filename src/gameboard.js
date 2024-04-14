@@ -17,7 +17,7 @@ class Gameboard {
   addShips() {
     for (let i = 0; i < 5; i += 1) {
       const obj = {};
-      const length = Math.floor(Math.random() * 4) + 1;
+      const length = Math.floor(Math.random() * 4 + 2);
       const ship = new Ship(length);
       obj.ship = ship;
       obj.coordinates = this.findLegalSpaces(ship.length);
@@ -33,7 +33,7 @@ class Gameboard {
   }
 
   findLegalSpaces(length, coords = new Coordinate()) {
-    coords.generateRandomCoords();
+    coords.generateRandomCoords(this.xMax, this.yMax, this.xMin, this.yMin);
     const start = coords.coordinateArray();
     let possible = coords.getVerticalRange(this.xMax, length);
     if (this.legalStart(start)) {
@@ -71,5 +71,8 @@ class Gameboard {
     this.moves.add(String(arr[0]) + String(arr[1]));
   }
 }
+
+const gb = new Gameboard();
+gb.addShips();
 
 export default Gameboard;
