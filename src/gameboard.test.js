@@ -76,3 +76,9 @@ test('Adds ships to board', () => {
   gb.addShips();
   expect(gb.ships.length).toBe(5);
 });
+
+test('Gameboard can register a successful attack', () => {
+  const gb = new Gameboard();
+  gb.addShips();
+  
+})

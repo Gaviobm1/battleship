@@ -33,19 +33,31 @@ class Gameboard {
   }
 
   findLegalSpaces(length, coords = new Coordinate()) {
-    coords.generateRandomCoords(this.xMax, this.yMax, this.xMin, this.yMin);
+    coords.generateRandomCoords();
     const start = coords.coordinateArray();
-    let possible = coords.getVerticalRange(this.xMax, length);
-    if (this.legalStart(start)) {
-      if (possible.some(this.spaceOccupied, this)) {
-        possible = coords.getHorizontalRange(this.yMax, length);
-        if (possible.some(this.spaceOccupied, this)) {
+    const n = Math.floor(Math.random() * 2);
+    if (n === 0) {
+      if (this.legalStart(start)) {
+        const results = coords.getVerticalRange(this.xMax, length);
+        if (results.some(this.spaceOccupied, this)) {
           return this.findLegalSpaces(length);
         }
+        this.addOccupiedSpaces(results);
+        return results;
       }
+      return this.findLegalSpaces(length);
     }
-    this.addOccupiedSpaces(possible);
-    return possible;
+    if (n === 1) {
+      if (this.legalStart(start)) {
+        const results = coords.getHorizontalRange(this.xMax, length);
+        if (results.some(this.spaceOccupied, this)) {
+          return this.findLegalSpaces(length);
+        }
+        this.addOccupiedSpaces(results);
+        return results;
+      }
+      return this.findLegalSpaces(length);
+    }
   }
 
   addOccupiedSpaces(arr) {
@@ -70,9 +82,17 @@ class Gameboard {
     }
     this.moves.add(String(arr[0]) + String(arr[1]));
   }
-}
 
-const gb = new Gameboard();
-gb.addShips();
+  receiveAttack(attack) {
+    this.ships.forEach((ship) => {
+      ship.coordinates.forEach((coord) => {
+        if (coord.join('') === attack.join('')) {
+          return true;
+        }
+      });
+    });
+    return false;
+  }
+}
 
 export default Gameboard;
